@@ -1,4 +1,3 @@
-
 function windowPopUp() {
   var reportWindow = document.getElementById("reportWindow");
   if (reportWindow.style.display === "none") {
@@ -32,6 +31,7 @@ function initMap() {
 
   var autocomplete;
   var latlng;
+  var name;
   autocomplete = new google.maps.places.Autocomplete(
     document.getElementById('autocomplete'),
     {
@@ -46,29 +46,60 @@ function initMap() {
       var lat = place.geometry.location.lat();
       latlng = {lat, lng};
       console.log(latlng);
+      name = place.name;
       });
 
       $(document).ready(function() {
         $("#submit").click(function() {
           console.log("submitted");
-          createMarker(latlng, map);
+          createMarker(latlng, name, map);
+          closeWindowPopUp();
         });
       });
     }
 
-function createMarker(location, map) {
-  saveReportInfo(location);
+function createMarker(location, name, map) {
+  var datetime;
+  var placename;
+  var id;
+  var details;
+  var location;
+  saveReportInfo(location, name);
   var marker = new google.maps.Marker({
     position: location,
     map: map,
-    icon: 'Vector.png'
+    icon: 'Vector.png',
+    title: name
   });
   console.log("marker created")
-}
 
-function saveReportInfo(location) {
-  var datetime = document.getElementById("datetime");
-  var id; // create unique id for each report
-  var details = document.getElementById("details");
-  var location = location;
+  function saveReportInfo(location, name) {
+    datetime = document.getElementById("datetime");
+    placename = name;
+    console.log(datetime.value);
+    console.log(name);
+    //unique id for each report
+    id = datetime.value;
+    details = document.getElementById("details");
+    console.log(details.value);
+    location = location;
+  }
+
+  const contentString =
+  '<div id="content">' +
+  '<div id="siteNotice">' +
+  "</div>" + '<h2>' + placename + '</h2>' +
+  '<div id="bodyContent">' +
+  "<p><b>Date: </b>" + datetime.value +
+  "<br><b>Details: </b>" + details.value + "</p>" +
+  "</div>" +
+  "</div>"
+
+  const infowindow = new google.maps.InfoWindow({
+    content: contentString,
+  });
+
+  marker.addListener("click", () => {
+    infowindow.open(map, marker);
+  });
 }
