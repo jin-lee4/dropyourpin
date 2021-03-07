@@ -79,7 +79,7 @@ function createMarker(location, name, map) {
     console.log(datetime.value);
     console.log(name);
     //unique id for each report
-    id = datetime.value;
+    id = datetime.value + placename;
     details = document.getElementById("details");
     console.log(details.value);
     location = location;
