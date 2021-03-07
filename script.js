@@ -44,28 +44,15 @@ function initMap() {
         var lat = place.geometry.location.lat();
         var latlng = {lat, lng};
         var submitReport = document.getElementById("submit");
-        submitReport.addListener("onClick", function() {
+        submitReport.addEventListener("onClick", createMarker(latlng));
+
+        console.log(latlng);
+
+        function createMarker(coords) {
           const marker = new google.maps.Marker({
-            position: latlng,
+            position: coords,
             map: map,
           });
-        })
-        console.log(latlng);
+        }
       });
-
-  // The marker, positioned at UBC
-  // const marker = new google.maps.Marker({
-  //   position: ubc,
-  //   map: map,
-  // });
-}
-
-// function initAutocomplete() {
-//     var autocomplete = new google.maps.places.Autocomplete(
-//     document.getElementById('autocomplete'),
-//     {
-//       types: ['establishment'],
-//       componentRestrictions: {'country': ['CA']},
-//       fields: ['place_id', 'geometry', 'name']
-//     });
-// }
+    }
