@@ -1,3 +1,7 @@
+var lng;
+var lat;
+var latlng;
+
 function reportWindowPopUp() {
   var reportWindow = document.getElementById("reportWindow");
   if (reportWindow.style.display === "none") {
@@ -40,18 +44,19 @@ function initMap() {
       autocomplete.addListener('place_changed', function() {
         fields: ['place_id', 'geometry', 'name', 'formatted_address'];
         var place = autocomplete.getPlace();
-        var lng = place.geometry.location.lng();
-        var lat = place.geometry.location.lat();
-        var latlng = {lat, lng};
+        lng = place.geometry.location.lng();
+        lat = place.geometry.location.lat();
+        latlng = {lat, lng};
         var submitReport = document.getElementById("submit");
-        submitReport.addEventListener("onClick", createMarker(latlng));
+        submitReport.addEventListener("onclick", createMarker(latlng));
 
         console.log(latlng);
 
         function createMarker(coords) {
-          const marker = new google.maps.Marker({
+          var marker = new google.maps.Marker({
             position: coords,
             map: map,
+            icon: 'Vector.png'
           });
         }
       });
