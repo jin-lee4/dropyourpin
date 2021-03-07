@@ -5,34 +5,28 @@
     <title>drop your pin!</title>
     <link rel="stylesheet" href="stylesheet.css">
     <script src="script.js"></script>
+    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBlPXGMg-hYj0nZSIN7QBejs37B25RynFM&libraries=places&callback=initMap"></script>
 </head>
 
 <body>
   <div id="map"></div>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDsRIK6ZraFtFg3OVGxc--9vRLHZUYkblw&callback=initMap&libraries=&v=weekly"
-      async></script>
-      <script async
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBlPXGMg-hYj0nZSIN7QBejs37B25RynFM&libraries=places&callback=initAutocomplete">
-</script>
-</div>
+  <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBlPXGMg-hYj0nZSIN7QBejs37B25RynFM&callback=initMap&libraries=&v=weekly"
+      async></script> -->
 
-<button id="reportBtn" onclick="reportWindowPopUp()">add a report</button>
+<button id="reportBtn" onclick="reportWindowPopUp()">Submit a report</button>
 
 <div id="reportWindow" class="popup">
   <div class="reportWindow-content">
     <button id="closeBtn" onclick ="closeReportWindow()">&times;</button>
+
     <h2>Submit a report</h2>
-    <form>
-      <label for="location">Location: </label>
-      <input type="text" class="form-control" id="search_input" placeholder="Enter name of location..."/>
-      <br><label for="date">Date: </label>
-      <input type="date" id="date" name="date">
-      <br><input type='submit' value = 'Submit'>
-    </form>
+
+    <label for="location">Location: </label>
+    <input id="autocomplete" placeholder="Enter a place" type="text"/>
+    <br><label for ="date">Date: </label>
+    <input type="date" id-"date" name="date">
+    <br><input type="submit" value="Submit">
   </div>
 </div>
-
-<script>
-
 </body>
 </html>
