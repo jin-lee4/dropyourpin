@@ -1,8 +1,5 @@
-var lng;
-var lat;
-var latlng;
 
-function reportWindowPopUp() {
+function windowPopUp() {
   var reportWindow = document.getElementById("reportWindow");
   if (reportWindow.style.display === "none") {
     reportWindow.style.display = "block";
@@ -19,7 +16,7 @@ window.onclick = function(event) {
   }
 }
 
-function closeReportWindow() {
+function closeWindowPopUp() {
   reportWindow.style.display = "none";
 }
 
@@ -33,31 +30,45 @@ function initMap() {
     center: ubc,
   });
 
-    var autocomplete;
-    autocomplete = new google.maps.places.Autocomplete(
-      document.getElementById('autocomplete'),
-      {
-        types: ['establishment'],
-        componentRestrictions: {'country': ['CA']},
+  var autocomplete;
+  var latlng;
+  autocomplete = new google.maps.places.Autocomplete(
+    document.getElementById('autocomplete'),
+    {
+      types: ['establishment'],
+      componentRestrictions: {'country': ['CA']},
+    });
+
+    autocomplete.addListener('place_changed', function() {
+      fields: ['place_id', 'geometry', 'name', 'formatted_address'];
+      var place = autocomplete.getPlace();
+      var lng = place.geometry.location.lng();
+      var lat = place.geometry.location.lat();
+      latlng = {lat, lng};
+      console.log(latlng);
       });
 
-      autocomplete.addListener('place_changed', function() {
-        fields: ['place_id', 'geometry', 'name', 'formatted_address'];
-        var place = autocomplete.getPlace();
-        lng = place.geometry.location.lng();
-        lat = place.geometry.location.lat();
-        latlng = {lat, lng};
-        var submitReport = document.getElementById("submit");
-        submitReport.addEventListener("onclick", createMarker(latlng));
-
-        console.log(latlng);
-
-        function createMarker(coords) {
-          var marker = new google.maps.Marker({
-            position: coords,
-            map: map,
-            icon: 'Vector.png'
-          });
-        }
+      $(document).ready(function() {
+        $("#submit").click(function() {
+          console.log("submitted");
+          createMarker(latlng, map);
+        });
       });
     }
+
+function createMarker(location, map) {
+  saveReportInfo(location);
+  var marker = new google.maps.Marker({
+    position: location,
+    map: map,
+    icon: 'Vector.png'
+  });
+  console.log("marker created")
+}
+
+function saveReportInfo(location) {
+  var datetime = document.getElementById("datetime");
+  var id; // create unique id for each report
+  var details = document.getElementById("details");
+  var location = location;
+}
