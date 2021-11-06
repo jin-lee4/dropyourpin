@@ -1,6 +1,6 @@
 # dropyourpin
 
-<h1><things we really want</h1>
+<h1>things we really want</h1>
 - as a user, I want to have an about page that has information about the website and the reason behind the website
 - as a user, I want to be able to view a map with all added pins
 - as a user, I want to input a report and add it to the map
